@@ -1,0 +1,10 @@
+language: ruby
+cache: bundler
+sudo: false
+rvm:
+ - 2.2
+before_script: bundle update
+notifications:
+  email:
+    on_success: never
+    on_failure: never
