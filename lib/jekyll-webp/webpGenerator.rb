@@ -10,7 +10,7 @@ module Jekyll
       def write(dest)
         true # Recover from strange exception when starting server without --auto
       end
-    end #class WebPImageFile
+    end #class WebpFile
 
     class WebpGenerator < Generator
       # This generator is safe from arbitrary code execution.
@@ -34,10 +34,13 @@ module Jekyll
           return
         end
 
-        Jekyll.logger.info "WebP:","Starting"
+        Jekyll.logger.debug "WebP:","Starting"
 
         # If the site destination directory has not yet been created then create it now. Otherwise, we cannot write our file there.
         Dir::mkdir(site.dest) if !File.directory? site.dest
+
+        # Counting the number of files generated
+        file_count = 0
 
         # Iterate through every image in each of the image folders and create a webp image
         # if one has not been created already for that image.
@@ -75,8 +78,6 @@ module Jekyll
               if( File.file?(outfile_fullpath_webp) && 
                   File.mtime(outfile_fullpath_webp) <= File.mtime(infile_fullpath) )
                 Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP"
-                #puts "      WebP: "+File.mtime(outfile_fullpath_webp).strftime('%Y-%m-%d %H:%M:%S')
-                #puts "      Source: "+File.mtime(infile_fullpath).strftime('%Y-%m-%d %H:%M:%S')
               end
 
               # Generate the file
