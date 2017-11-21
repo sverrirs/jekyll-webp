@@ -6,8 +6,9 @@ module Jekyll
     DEFAULT = {
       'enabled'   => false,
 
-      # The quality of the webp conversion 0 to 100 (where 100 is least lossy)
-      'quality'   => 75,
+      # The flags to pass to the webp binary. For a list of valid parameters check here:
+      # https://developers.google.com/speed/webp/docs/cwebp#options
+      'flags'     => "-q 75",
 
       # List of directories containing images to optimize, Nested directories will not be checked
       'img_dir'   => ["/img"],
