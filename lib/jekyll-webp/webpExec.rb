@@ -17,7 +17,7 @@ module Jekyll
         # What is the OS and architecture specific executable name?
         exe_name = WebpExec.exe_name
 
-        # We need to locate the Gems bin path as we're currently running inside the
+        # We need to locate the Gems bin path as we're currently running inside the 
         # jekyll site working directory
         # http://stackoverflow.com/a/10083594/779521
         gem_spec = Gem::Specification.find_by_name("jekyll-webp")
@@ -27,8 +27,8 @@ module Jekyll
         full_path = File.join(gem_root, bin_path, exe_name)
 
         # Construct the full program call
-        cmd = "\"#{full_path}\" -quiet -mt -m 6 -pass 10 -q #{quality.to_s} \"#{input_file}\" -o \"#{output_file}\""
-
+        cmd = "\"#{full_path}\" -quiet -mt -q #{quality.to_s} \"#{input_file}\" -o \"#{output_file}\""
+        
         # Execute the command
         stdin, stdout, stderr = Open3.popen3(cmd)
 
@@ -60,7 +60,7 @@ module Jekyll
       end #function exe_name
 
     end #class WebpExec
-
+    
   end #module Webp
 
   module OS
