@@ -82,7 +82,7 @@ module Jekyll
               end
 
               # Generate the file
-              WebpExec.run(@config['quality'], imgfile, outfile_fullpath_webp)
+              WebpExec.run(@config['flags'], imgfile, outfile_fullpath_webp)
               
               # Keep the webp file from being cleaned by Jekyll
               site.static_files << WebpFile.new(site, site.dest, imgdir, outfile_fullpath_webp)
