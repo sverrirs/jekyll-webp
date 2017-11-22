@@ -10,6 +10,12 @@ module Jekyll
       # https://developers.google.com/speed/webp/docs/cwebp#options
       'flags'     => "-q 75",
 
+      # For best lossy compression use
+      # 'flags'     => "-q 100 -m 6 -pass 10 -af",
+
+      # For best lossless compression use
+      # 'flags'     => "-q 100 -lossless -z 9",
+
       # List of directories containing images to optimize, Nested directories will not be checked
       'img_dir'   => ["/img"],
 
