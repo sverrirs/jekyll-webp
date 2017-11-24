@@ -9,7 +9,7 @@ module Jekyll
       # Runs the WebP executable for the given input parameters
       # the function detects the OS platform and architecture automatically
       #
-      def self.run(flags, input_file, output_file)
+      def self.run(quality, flags, input_file, output_file)
 
         # What is the path to the execs inside the gem? perhaps just bin/?
         bin_path = "bin/"
@@ -27,7 +27,7 @@ module Jekyll
         full_path = File.join(gem_root, bin_path, exe_name)
 
         # Construct the full program call
-        cmd = "\"#{full_path}\" -quiet -mt #{flags} \"#{input_file}\" -o \"#{output_file}\""
+        cmd = "\"#{full_path}\" -quiet -mt -q #{quality.to_s} #{flags} \"#{input_file}\" -o \"#{output_file}\""
         
         # Execute the command
         exit_code = 0
@@ -41,7 +41,8 @@ module Jekyll
         end
 
         if exit_code != 0
-          Jekyll.logger.error("WebP:","cwebp returned #{exit_code} with error #{error}")
+          Jekyll.logger.error("WebP:","Conversion for image #{input_file} failed, no webp version could be created for this image")
+          Jekyll.logger.debug("WebP:","cwebp returned #{exit_code} with error #{error}")
         end
 
         # Return any captured return value

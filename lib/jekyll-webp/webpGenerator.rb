@@ -69,28 +69,25 @@ module Jekyll
               FileUtils::mkdir_p(imgdir_destination + imgfile_relative_path)
               outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, outfile_filename)
 
-              # Keep the webp file from being cleaned by Jekyll
-              site.static_files << WebpFile.new(site,
-                                                site.dest,
-                                                File.join(imgdir, imgfile_relative_path),
-                                                outfile_filename)
-
               # Check if the file already has a webp alternative?
               # If we're force rebuilding all webp files then ignore the check
               # also check the modified time on the files to ensure that the webp file
               # is newer than the source file, if not then regenerate
-              next if !@config['regenerate'] && File.file?(outfile_fullpath_webp) &&
-                      File.mtime(outfile_fullpath_webp) > File.mtime(imgfile)      
-              
-              if( File.file?(outfile_fullpath_webp) && 
-                  File.mtime(outfile_fullpath_webp) <= File.mtime(imgfile) )
+              if @config['regenerate'] || !File.file?(outfile_fullpath_webp) ||
+                 File.mtime(outfile_fullpath_webp) <= File.mtime(imgfile)
                 Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP"
-              end
 
-              # Generate the file
-              WebpExec.run(@config['flags'], imgfile, outfile_fullpath_webp)
-              file_count += 1
-              
+                # Generate the file
+                WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp)
+                file_count += 1
+              end
+              if File.file?(outfile_fullpath_webp)
+                # Keep the webp file from being cleaned by Jekyll
+                site.static_files << WebpFile.new(site,
+                                                  site.dest,
+                                                  File.join(imgdir, imgfile_relative_path),
+                                                  outfile_filename)
+              end
           end # dir.foreach
         end # img_dir
 

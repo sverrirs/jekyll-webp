@@ -6,15 +6,12 @@ module Jekyll
     DEFAULT = {
       'enabled'   => false,
 
-      # The flags to pass to the webp binary. For a list of valid parameters check here:
+      # The quality of the webp conversion 0 to 100 (where 100 is least lossy)
+      'quality'   => 75,
+
+      # Other flags to pass to the webp binary. For a list of valid parameters check here:
       # https://developers.google.com/speed/webp/docs/cwebp#options
-      'flags'     => "-q 75",
-
-      # For best lossy compression use
-      # 'flags'     => "-q 100 -m 6 -pass 10 -af",
-
-      # For best lossless compression use
-      # 'flags'     => "-q 100 -lossless -z 9",
+      'flags'     => "-m 4 -pass 4 -af",
 
       # List of directories containing images to optimize, Nested directories will not be checked
       'img_dir'   => ["/img"],
