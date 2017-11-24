@@ -69,6 +69,12 @@ module Jekyll
               FileUtils::mkdir_p(imgdir_destination + imgfile_relative_path)
               outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, outfile_filename)
 
+              # Keep the webp file from being cleaned by Jekyll
+              site.static_files << WebpFile.new(site,
+                                                site.dest,
+                                                File.join(imgdir, imgfile_relative_path),
+                                                outfile_filename)
+
               # Check if the file already has a webp alternative?
               # If we're force rebuilding all webp files then ignore the check
               # also check the modified time on the files to ensure that the webp file
@@ -83,9 +89,6 @@ module Jekyll
 
               # Generate the file
               WebpExec.run(@config['flags'], imgfile, outfile_fullpath_webp)
-              
-              # Keep the webp file from being cleaned by Jekyll
-              site.static_files << WebpFile.new(site, site.dest, imgdir, outfile_fullpath_webp)
               file_count += 1
               
           end # dir.foreach
