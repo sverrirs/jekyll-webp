@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.summary       = %q{WebP image generator for Jekyll 3 websites}
-  spec.description   = %q{WebP Image Generator for Jekyll 3 Sites that automatically generate WebP images for all images on your static site and serves them when possible.}
+  spec.description   = %q{WebP Image Generator for Jekyll 3 Sites that automatically generate WebP images for all images on your static site and serves them when possible. Includes the v0.6.1 version of the WebP utilities for Windows, Linux and Mac OS X 10.9 (Mountain Lion)}
   
   spec.files         = Dir['CODE_OF_CONDUCT.md', 'README.md', 'LICENSE', 'Rakefile', '*.gemspec', 'Gemfile', 'lib/**/*', 'spec/**/*', 'bin/**/*']
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }

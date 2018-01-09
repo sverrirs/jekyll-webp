@@ -1,6 +1,7 @@
 
 # WebP Generator for Jekyll
-WebP Image Generator for Jekyll Sites can automatically generate WebP images for all images on your static site and serve them when possible.
+WebP Image Generator for Jekyll Sites can automatically generate WebP images for all images on your static site and serve them when possible. View on [rubygems.org](https://rubygems.org/gems/jekyll-webp).
+
 > Read more about this tool on my blog at <a href="https://blog.sverrirs.com/2016/06/webp-generator-for-jekyll-sites.html" target="_blank">blog.sverrirs.com</a>
 
 ## Installation
@@ -11,7 +12,7 @@ gem install jekyll-webp
 
 The release includes all necessary files to run, including the WebP redistributable executable files.
 
-> Currently the release includes the v0.5.1 version of the WebP utilities for Windows, Linux and Mac OS X 10.9 (Mountain Lion). Other versions and releases can be downloaded directly from <a href="https://developers.google.com/speed/webp/docs/precompiled" target="_blank">the Google page</a>.
+> Currently the release includes the v0.6.1 version of the WebP utilities for Windows, Linux and Mac OS X 10.9 (Mountain Lion). Other versions and releases can be downloaded directly from <a href="https://developers.google.com/speed/webp/docs/precompiled" target="_blank">the Google page</a>.
 
 Add the gem to your `Gemfile` and to Jekyll's `_config.yml` then run `jekyll serve` again and you should see the generator run during site generation.
 
@@ -62,7 +63,7 @@ In case you don't have control over your webserver then using the `<picture>` el
 ```
 
 ## Advanced use: Webserver Configuration
-If you can then configuring your webserver to serve your new _.webp_ files to clients that support the format is probably the least problematic approach. This way you don't need to make any changes to your HTML files as your webserver will automatically serve WebP images when the client supports them. 
+If you can, then configuring your webserver to serve your new _.webp_ files to clients that support the format is probably the least problematic approach. This way you don't need to make any changes to your HTML files as your webserver will automatically serve WebP images when the client supports them. 
 
 Below is an example for a .htaccess configuration section in an Apache web-server. It will redirect users to webp images whenever possible.
 
