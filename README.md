@@ -1,3 +1,9 @@
+[![Gem Version](https://img.shields.io/gem/v/jekyll-webp.svg)](https://rubygems.org/gems/jekyll-webp)
+[![Gem](https://img.shields.io/gem/dt/jekyll-webp.svg)](https://rubygems.org/gems/jekyll-webp)
+[![Join the chat at https://gitter.im/jekyll-webp/Lobby](https://badges.gitter.im/jekyll-webp/Lobby.svg)](https://gitter.im/jekyll-webp/Lobby)
+[![Dependency Status](https://gemnasium.com/badges/github.com/sverrirs/jekyll-webp.svg)](https://gemnasium.com/github.com/sverrirs/jekyll-webp)
+[![Code Climate](https://codeclimate.com/github/sverrirs/jekyll-webp/badges/gpa.svg)](https://codeclimate.com/github/sverrirs/jekyll-webp)
+[![security](https://hakiri.io/github/sverrirs/jekyll-webp/master.svg)](https://hakiri.io/github/sverrirs/jekyll-webp/master)
 
 # WebP Generator for Jekyll
 WebP Image Generator for Jekyll Sites can automatically generate WebP images for all images on your static site and serve them when possible. View on [rubygems.org](https://rubygems.org/gems/jekyll-webp).
