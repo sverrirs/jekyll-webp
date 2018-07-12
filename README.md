@@ -55,6 +55,10 @@ webp:
   # List of files or directories to exclude
   # e.g. custom or hand generated webp conversion files
   exclude: []
+
+  # append '.webp' to filename after original extension rather than replacing it.
+  # Default transforms `image.png` to `image.webp`, while changing to true transforms `image.png` to `image.png.webp`
+  append_ext: false
 ############################################################
 ```
 
