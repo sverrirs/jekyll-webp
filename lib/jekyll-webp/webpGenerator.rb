@@ -5,7 +5,7 @@ module Jekyll
   module Webp
 
     #
-    # A static file to hold the generated webp image after generation 
+    # A static file to hold the generated webp image after generation
     # so that Jekyll will copy it into the site output directory
     class WebpFile < StaticFile
       def write(dest)
@@ -50,11 +50,11 @@ module Jekyll
           imgdir_destination = File.join(site.dest, imgdir)
           FileUtils::mkdir_p(imgdir_destination)
           Jekyll.logger.info "WebP:","Processing #{imgdir_source}"
-          
+
           # handle only jpg, jpeg, png and gif
           for imgfile in Dir[imgdir_source + "**/*.*"]
               imgfile_relative_path = File.dirname(imgfile.sub(imgdir_source, ""))
-          
+
               # Skip empty stuff
               file_ext = File.extname(imgfile).downcase
 
@@ -62,10 +62,14 @@ module Jekyll
               next if !@config['formats'].include? file_ext
 
               # TODO: Do an exclude check
-              
+
               # Create the output file path
-              file_noext = File.basename(imgfile, file_ext)
-              outfile_filename = file_noext+ ".webp"
+              outfile_filename = if @config['append_ext']
+                File.basename(imgfile) + '.webp'
+              else
+                file_noext = File.basename(imgfile, file_ext)
+                file_noext + ".webp"
+              end
               FileUtils::mkdir_p(imgdir_destination + imgfile_relative_path)
               outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, outfile_filename)
 
@@ -96,6 +100,6 @@ module Jekyll
       end #function generate
 
     end #class WebPGenerator
-    
+
   end #module Webp
 end #module Jekyll

@@ -19,7 +19,12 @@ module Jekyll
       # add ".gif" to the format list to generate webp for animated gifs as well
       'formats'   => [".jpeg", ".jpg", ".png", ".tiff"],
 
-      # File extensions for animated gif files 
+      # append .webp to existing extension instead of replacing it
+      # (Enables more efficient nginx rules.
+      # See http://www.lazutkin.com/blog/2014/02/23/serve-files-with-nginx-conditionally/)
+      'append_ext' => false,
+
+      # File extensions for animated gif files
       'gifs'      => [".gif"],
 
       # Set to true to always regenerate existing webp files
@@ -33,7 +38,7 @@ module Jekyll
       # e.g. custom or hand generated webp conversion files
       'exclude'   => [],
 
-      # List of files or directories to explicitly include 
+      # List of files or directories to explicitly include
       # e.g. single files outside of the main image directories
       'include'   => []
     }
