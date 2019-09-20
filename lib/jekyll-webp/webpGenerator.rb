@@ -40,6 +40,16 @@ module Jekyll
         # If the site destination directory has not yet been created then create it now. Otherwise, we cannot write our file there.
         Dir::mkdir(site.dest) if !File.directory? site.dest
 
+        # If nesting is enabled, get all the nested directories too
+        if @config['nested']
+          newdir = []
+          for imgdir in @config['img_dir']
+            # Get every directory below (and including) imgdir, recursively
+            newdir.concat(Dir.glob(imgdir + "/**/"))
+          end
+          @config['img_dir'] = newdir
+        end
+
         # Counting the number of files generated
         file_count = 0
 
