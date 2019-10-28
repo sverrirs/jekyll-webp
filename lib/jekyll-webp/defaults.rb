@@ -13,8 +13,11 @@ module Jekyll
       # https://developers.google.com/speed/webp/docs/cwebp#options
       'flags'     => "-m 4 -pass 4 -af",
 
-      # List of directories containing images to optimize, Nested directories will not be checked
+      # List of directories containing images to optimize, Nested directories only be checked if `nested` is true
       'img_dir'   => ["/img"],
+
+      # Whether to search in nested directories or not
+      'nested'   => false,
 
       # add ".gif" to the format list to generate webp for animated gifs as well
       'formats'   => [".jpeg", ".jpg", ".png", ".tiff"],
