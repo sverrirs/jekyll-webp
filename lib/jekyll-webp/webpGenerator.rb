@@ -61,8 +61,14 @@ module Jekyll
           FileUtils::mkdir_p(imgdir_destination)
           Jekyll.logger.info "WebP:","Processing #{imgdir_source}"
 
+          # append a / if missing
+          imgdir_search_prefix = imgdir_source
+          if !imgdir_source.end_with?("/") then
+            imgdir_search_prefix = imgdir_source + "/"
+          end
+
           # handle only jpg, jpeg, png and gif
-          for imgfile in Dir[imgdir_source + "**/*.*"]
+          for imgfile in Dir[imgdir_search_prefix + "**/*.*"]
               imgfile_relative_path = File.dirname(imgfile.sub(imgdir_source, ""))
 
               # Skip empty stuff
