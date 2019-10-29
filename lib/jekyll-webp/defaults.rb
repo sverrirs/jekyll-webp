@@ -13,13 +13,21 @@ module Jekyll
       # https://developers.google.com/speed/webp/docs/cwebp#options
       'flags'     => "-m 4 -pass 4 -af",
 
-      # List of directories containing images to optimize, Nested directories will not be checked
+      # List of directories containing images to optimize, Nested directories only be checked if `nested` is true
       'img_dir'   => ["/img"],
+
+      # Whether to search in nested directories or not
+      'nested'   => false,
 
       # add ".gif" to the format list to generate webp for animated gifs as well
       'formats'   => [".jpeg", ".jpg", ".png", ".tiff"],
 
-      # File extensions for animated gif files 
+      # append .webp to existing extension instead of replacing it
+      # (Enables more efficient nginx rules.
+      # See http://www.lazutkin.com/blog/2014/02/23/serve-files-with-nginx-conditionally/)
+      'append_ext' => false,
+
+      # File extensions for animated gif files
       'gifs'      => [".gif"],
 
       # Set to true to always regenerate existing webp files
@@ -33,7 +41,7 @@ module Jekyll
       # e.g. custom or hand generated webp conversion files
       'exclude'   => [],
 
-      # List of files or directories to explicitly include 
+      # List of files or directories to explicitly include
       # e.g. single files outside of the main image directories
       'include'   => []
     }

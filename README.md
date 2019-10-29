@@ -35,9 +35,12 @@ webp:
   # The quality of the webp conversion 0 to 100 (where 100 is least lossy)
   quality: 75
 
-  # List of directories containing images to optimize, nested directories will not be checked
+  # List of directories containing images to optimize, nested directories will only be checked if `nested` is true
   # By default the generator will search for a folder called `/img` under the site root and process all jpg, png and tiff image files found there.
   img_dir: ["/img"]
+
+  # Whether to search in nested directories or not
+  nested: false
 
   # add ".gif" to the format list to generate webp for animated gifs as well
   formats: [".jpeg", ".jpg", ".png", ".tiff"]
@@ -55,6 +58,10 @@ webp:
   # List of files or directories to exclude
   # e.g. custom or hand generated webp conversion files
   exclude: []
+
+  # append '.webp' to filename after original extension rather than replacing it.
+  # Default transforms `image.png` to `image.webp`, while changing to true transforms `image.png` to `image.png.webp`
+  append_ext: false
 ############################################################
 ```
 
