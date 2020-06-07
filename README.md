@@ -35,7 +35,7 @@ webp:
   # The quality of the webp conversion 0 to 100 (where 100 is least lossy)
   quality: 75
 
-  # List of directories containing images to optimize, nested directories will only be checked if `nested` is true
+  # List of directories containing images to optimize, nested directories will only be checked if `nested` is true and if there's a trailing slash to your path (e.g "/img/")
   # By default the generator will search for a folder called `/img` under the site root and process all jpg, png and tiff image files found there.
   img_dir: ["/img"]
 
