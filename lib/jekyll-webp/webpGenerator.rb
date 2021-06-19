@@ -5,7 +5,7 @@ module Jekyll
   module Webp
 
     #
-    # A static file to hold the generated webp image after generation
+    # A static file to hold the generated webp image after generation 
     # so that Jekyll will copy it into the site output directory
     class WebpFile < StaticFile
       def write(dest)
@@ -40,16 +40,6 @@ module Jekyll
         # If the site destination directory has not yet been created then create it now. Otherwise, we cannot write our file there.
         Dir::mkdir(site.dest) if !File.directory? site.dest
 
-        # If nesting is enabled, get all the nested directories too
-        if @config['nested']
-          newdir = []
-          for imgdir in @config['img_dir']
-            # Get every directory below (and including) imgdir, recursively
-            newdir.concat(Dir.glob(imgdir + "/**/"))
-          end
-          @config['img_dir'] = newdir
-        end
-
         # Counting the number of files generated
         file_count = 0
 
@@ -60,11 +50,11 @@ module Jekyll
           imgdir_destination = File.join(site.dest, imgdir)
           FileUtils::mkdir_p(imgdir_destination)
           Jekyll.logger.info "WebP:","Processing #{imgdir_source}"
-
+          
           # handle only jpg, jpeg, png and gif
           for imgfile in Dir[imgdir_source + "**/*.*"]
               imgfile_relative_path = File.dirname(imgfile.sub(imgdir_source, ""))
-
+          
               # Skip empty stuff
               file_ext = File.extname(imgfile).downcase
 
@@ -72,14 +62,10 @@ module Jekyll
               next if !@config['formats'].include? file_ext
 
               # TODO: Do an exclude check
-
+              
               # Create the output file path
-              outfile_filename = if @config['append_ext']
-                File.basename(imgfile) + '.webp'
-              else
-                file_noext = File.basename(imgfile, file_ext)
-                file_noext + ".webp"
-              end
+              file_noext = File.basename(imgfile, file_ext)
+              outfile_filename = file_noext+ ".webp"
               FileUtils::mkdir_p(imgdir_destination + imgfile_relative_path)
               outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, outfile_filename)
 
@@ -92,7 +78,12 @@ module Jekyll
                 Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP"
 
                 # Generate the file
-                WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp)
+                $is_gif = imgfile.match(/\.gif/)
+                if $is_gif
+                  WebpExec.run(@config['quality'], @config['gif_flags'], imgfile, outfile_fullpath_webp)
+                else
+                  WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp)
+                end
                 file_count += 1
               end
               if File.file?(outfile_fullpath_webp)
@@ -110,6 +101,6 @@ module Jekyll
       end #function generate
 
     end #class WebPGenerator
-
+    
   end #module Webp
 end #module Jekyll
