@@ -10,7 +10,6 @@ module Jekyll
       # the function detects the OS platform and architecture automatically
       #
       def self.run(quality, flags, input_file, output_file)
-
         # What is the path to the execs inside the gem? perhaps just bin/?
         bin_path = "bin/"
 
@@ -28,6 +27,7 @@ module Jekyll
 
         # Construct the full program call
         cmd = "\"#{full_path}\" -quiet -mt -q #{quality.to_s} #{flags} \"#{input_file}\" -o \"#{output_file}\""
+        puts "COMMAND INITIATED:" + cmd
         
         # Execute the command
         exit_code = 0
@@ -53,22 +53,38 @@ module Jekyll
       # Returns the correct executable name depending on the OS platform and OS architecture
       #
       def self.exe_name
-        if OS.mac?
-          return "osx-cwebp"
-        elsif OS.windows?
-          if OS.x32?
-            return "win-x86-cwebp.exe"
+        if $is_gif
+          if OS.mac?
+            return "filthyApple-gif2webp"
+          elsif OS.windows?
+            if OS.x32?
+              return "win-x86-gif2webp.exe"
+            else
+              return "win-x64-gif2webp.exe"
+            end
+          elsif OS.unix? || OS.linux?
+            return "linux-gif2webp"
           else
-            return "win-x64-cwebp.exe"
-          end
-        elsif OS.unix? || OS.linux?
-          if OS.x32?
-            return "linux-x86-cwebp"
-          else
-            return "linux-x64-cwebp"
+            raise ArgumentError.new("OS platform could not be identified (gem can only be run on linux,osx or windows)")
           end
         else
-          raise ArgumentError.new("OS platform could not be identified (gem can only be run on linux,osx or windows)")
+          if OS.mac?
+            return "osx-cwebp"
+          elsif OS.windows?
+            if OS.x32?
+              return "win-x86-cwebp.exe"
+            else
+              return "win-x64-cwebp.exe"
+            end
+          elsif OS.unix? || OS.linux?
+            if OS.x32?
+              return "linux-x86-cwebp"
+            else
+              return "linux-x64-cwebp"
+            end
+          else
+            raise ArgumentError.new("OS platform could not be identified (gem can only be run on linux,osx or windows)")
+          end
         end
       end #function exe_name
 
