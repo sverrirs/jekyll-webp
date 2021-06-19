@@ -26,9 +26,7 @@ module Jekyll
         full_path = File.join(gem_root, bin_path, exe_name)
 
         # Construct the full program call
-        cmd = "\"#{full_path}\" -quiet -mt -q #{quality.to_s} #{flags} \"#{input_file}\" -o \"#{output_file}\""
-        puts "COMMAND INITIATED:" + cmd
-        
+        cmd = "\"#{full_path}\" -quiet -mt -q #{quality.to_s} #{flags} \"#{input_file}\" -o \"#{output_file}\""        
         # Execute the command
         exit_code = 0
         error = ""
