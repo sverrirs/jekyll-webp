@@ -92,7 +92,7 @@ module Jekyll
                 Jekyll.logger.info "WebP:", "Change to source image file #{imgfile} detected, regenerating WebP"
 
                 # Generate the file
-                WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp)
+                WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp, @config['webp_path'])
                 file_count += 1
               end
               if File.file?(outfile_fullpath_webp)

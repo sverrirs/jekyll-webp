@@ -53,6 +53,7 @@ webp:
 
   # Local path to the WebP utilities to use (relative or absolute)
   # Omit or leave as nil to use the utilities shipped with the gem, override only to use your local install
+  # Eg : "/usr/local/bin/cwebp"
   webp_path: nil
 
   # List of files or directories to exclude
