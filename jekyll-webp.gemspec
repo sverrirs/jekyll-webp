@@ -1,5 +1,6 @@
 # coding: utf-8
 require_relative 'lib/jekyll-webp/version'
+require "date"
 
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-webp"
@@ -19,8 +20,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^spec/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "fastimage", '>= 2.0.0'
+
   spec.add_development_dependency "jekyll", "~> 3.0"
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake", "~> 1.5"
   spec.add_development_dependency "minitest", '~> 5.4', '>= 5.4.3'
+  
 end

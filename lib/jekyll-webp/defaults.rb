@@ -43,7 +43,20 @@ module Jekyll
 
       # List of files or directories to explicitly include
       # e.g. single files outside of the main image directories
-      'include'   => []
+      'include'   => [],
+
+      # Use a different output subdirectory
+      # e.g. value of "/optimized" will create files at "/source/optimized" instead of "/source"
+      'output_img_sub_dir'   => "",
+
+      # Generate thumbnails
+      'thumbs'   => false,
+
+      # Thumbnails sub directory
+      'thumbs_dir'   => "/thumbs",
+      
+      # generate .5x images
+      'generate_50p'   => false
     }
 
   end # module Webp
