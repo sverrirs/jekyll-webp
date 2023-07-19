@@ -1,16 +1,24 @@
-[![Gem Version](https://img.shields.io/gem/v/jekyll-webp.svg)](https://rubygems.org/gems/jekyll-webp)
-[![Gem](https://img.shields.io/gem/dt/jekyll-webp.svg)](https://rubygems.org/gems/jekyll-webp)
-[![Join the chat at https://gitter.im/jekyll-webp/Lobby](https://badges.gitter.im/jekyll-webp/Lobby.svg)](https://gitter.im/jekyll-webp/Lobby)
-[![Dependency Status](https://gemnasium.com/badges/github.com/sverrirs/jekyll-webp.svg)](https://gemnasium.com/github.com/sverrirs/jekyll-webp)
-[![Code Climate](https://codeclimate.com/github/sverrirs/jekyll-webp/badges/gpa.svg)](https://codeclimate.com/github/sverrirs/jekyll-webp)
-[![security](https://hakiri.io/github/sverrirs/jekyll-webp/master.svg)](https://hakiri.io/github/sverrirs/jekyll-webp/master)
-
-# WebP Generator for Jekyll
+# WebP Generator for Jekyll (Extended)
 WebP Image Generator for Jekyll Sites can automatically generate WebP images for all images on your static site and serve them when possible. View on [rubygems.org](https://rubygems.org/gems/jekyll-webp).
 
-> Read more about this tool on my blog at <a href="https://blog.sverrirs.com/2016/06/webp-generator-for-jekyll-sites.html" target="_blank">blog.sverrirs.com</a>
+**This repo is an extended version of it's fork `jekyll-webp`**
 
-## Installation
+## Additional Features
+- Generate thumbnails in webp format
+- Generate small images (.5x) in webp format
+- Specifiy output sub directory for webp images
+
+## Additional Dependencies
+- fastimage
+
+## Installation instructions
+```
+group :jekyll_plugins do
+  gem 'jekyll-webp', git: 'https://github.com/Rohithzr/jekyll-webp-ext', branch: 'extend'
+end
+```
+
+## Original installation instructions
 
 ```
 gem install jekyll-webp
@@ -63,6 +71,22 @@ webp:
   # append '.webp' to filename after original extension rather than replacing it.
   # Default transforms `image.png` to `image.webp`, while changing to true transforms `image.png` to `image.png.webp`
   append_ext: false
+  
+  ##### Extended Features start
+  # Use a different output subdirectory
+  # e.g. value of "/optimized" will create files at "/source/optimized" instead of "/source"
+  output_img_sub_dir: "/optimized" # default ""
+  
+  # Generate thumbnails
+  thumbs: true
+  
+  # Thumbnails sub directory
+  thumbs_dir: "/thumbs"
+
+  # generate .5x images
+  generate_50p: true
+  
+  ##### Extended Features end
 ############################################################
 ```
 
