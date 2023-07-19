@@ -1,11 +1,12 @@
 # coding: utf-8
 require_relative 'lib/jekyll-webp/version'
+require "date"
 
 Gem::Specification.new do |spec|
   spec.name          = "jekyll-webp"
   spec.version       = Jekyll::Webp::VERSION
   spec.platform      = Gem::Platform::RUBY
-  # spec.date          = DateTime.now.strftime('%Y-%m-%d')
+  spec.date          = DateTime.now.strftime('%Y-%m-%d')
   spec.authors       = ["Sverrir Sigmundarson"]
   spec.email         = ["jekyll@sverrirs.com"]
   spec.homepage      = "https://github.com/sverrirs/jekyll-webp"
