@@ -1,7 +1,7 @@
 # WebP Generator for Jekyll (Extended)
 WebP Image Generator for Jekyll Sites can automatically generate WebP images for all images on your static site and serve them when possible. View on [rubygems.org](https://rubygems.org/gems/jekyll-webp).
 
-**This repo is an extended version of it's fork `jekyll-webp`**
+**This repo is an extended version of it's fork [https://github.com/sverrirs/jekyll-webp](`jekyll-webp`)**
 
 ## Additional Features
 - Generate thumbnails in webp format
