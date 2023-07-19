@@ -1,4 +1,5 @@
 require 'open3'
+require 'fastimage'
 
 module Jekyll
   module Webp
@@ -41,12 +42,13 @@ module Jekyll
           stdin.close # we don't pass any input to the process
           output = stdout.gets
           error = stderr.gets
+
           exit_code = wait_thr.value
         end
 
         if exit_code != 0
-          Jekyll.logger.error("WebP:","Conversion for image #{input_file} failed, no webp version could be created for this image")
-          Jekyll.logger.debug("WebP:","cwebp returned #{exit_code} with error #{error}")
+          # Jekyll.logger.error("WebP:","Conversion for image #{input_file} failed, no webp version could be created for this image")
+          Jekyll.logger.error("WebP:","cwebp returned #{exit_code} with error #{error}")
         end
 
         # Return any captured return value

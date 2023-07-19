@@ -52,6 +52,7 @@ module Jekyll
 
         # Counting the number of files generated
         file_count = 0
+        thumb_count = 0
 
         # Iterate through every image in each of the image folders and create a webp image
         # if one has not been created already for that image.
@@ -59,6 +60,12 @@ module Jekyll
           imgdir_source = File.join(site.source, imgdir)
           imgdir_destination = File.join(site.dest, imgdir)
           FileUtils::mkdir_p(imgdir_destination)
+          if @config['output_img_sub_dir'] != ""
+            FileUtils::mkdir_p(File.join(imgdir_destination, @config['output_img_sub_dir']))
+          end
+          if @config['thumbs']
+            FileUtils::mkdir_p(File.join(imgdir_destination, @config['thumbs_dir']))
+          end
           Jekyll.logger.info "WebP:","Processing #{imgdir_source}"
 
           # handle only jpg, jpeg, png and gif
@@ -80,8 +87,13 @@ module Jekyll
                 file_noext = File.basename(imgfile, file_ext)
                 file_noext + ".webp"
               end
+
+              small_outfile_filename = File.basename(imgfile, file_ext) + "-small" + ".webp"
+              
               FileUtils::mkdir_p(imgdir_destination + imgfile_relative_path)
-              outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, outfile_filename)
+              outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, @config['output_img_sub_dir'], outfile_filename)
+              small_outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, @config['output_img_sub_dir'], small_outfile_filename)
+              thumb_outfile_fullpath_webp = File.join(imgdir_destination + imgfile_relative_path, @config['thumbs_dir'], outfile_filename)
 
               # Check if the file already has a webp alternative?
               # If we're force rebuilding all webp files then ignore the check
@@ -94,18 +106,48 @@ module Jekyll
                 # Generate the file
                 WebpExec.run(@config['quality'], @config['flags'], imgfile, outfile_fullpath_webp, @config['webp_path'])
                 file_count += 1
+
+                if @config['generate_50p']
+                  # Get the image size
+                  Jekyll.logger.info "WebP:", "Generating small image file #{outfile_filename}"
+                  image_size = FastImage.size(imgfile, :raise_on_failure=>true, :timeout=>2.0)
+                  h_width = image_size[0] / 2
+                  size_flags = "-resize #{h_width} 0" + " " + @config['flags']
+                  WebpExec.run(@config['quality'], size_flags, imgfile, small_outfile_fullpath_webp, @config['webp_path'])
+                end
+                
+                # Generate the thumbnails
+                if @config['thumbs']
+                  Jekyll.logger.info "WebP:", "Generating thumbnail for #{outfile_filename} in #{@config['thumbs_dir']}"
+                  thumb_flags = "-resize 400 0" + " " + @config['flags']
+                  WebpExec.run(@config['quality'], thumb_flags, imgfile, thumb_outfile_fullpath_webp, @config['webp_path'])
+                  thumb_count += 1
+                end
               end
+
               if File.file?(outfile_fullpath_webp)
                 # Keep the webp file from being cleaned by Jekyll
                 site.static_files << WebpFile.new(site,
                                                   site.dest,
-                                                  File.join(imgdir, imgfile_relative_path),
+                                                  File.join(imgdir, imgfile_relative_path, @config['output_img_sub_dir']),
                                                   outfile_filename)
+                if @config['thumbs']
+                  site.static_files << WebpFile.new(site,
+                                                  site.dest,
+                                                  File.join(imgdir, imgfile_relative_path, @config['thumbs_dir']),
+                                                  outfile_filename)
+                end
+                if @config['generate_50p']
+                  site.static_files << WebpFile.new(site,
+                                                  site.dest,
+                                                  File.join(imgdir, imgfile_relative_path, @config['output_img_sub_dir']),
+                                                  small_outfile_filename)
+                end
               end
           end # dir.foreach
         end # img_dir
 
-        Jekyll.logger.info "WebP:","Generator Complete: #{file_count} file(s) generated"
+        Jekyll.logger.info "WebP:","Generator Complete: #{file_count} file(s) generated #{thumb_count} thumbnail(s) generated"
 
       end #function generate
 

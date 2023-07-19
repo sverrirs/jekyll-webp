@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.name          = "jekyll-webp"
   spec.version       = Jekyll::Webp::VERSION
   spec.platform      = Gem::Platform::RUBY
-  spec.date          = DateTime.now.strftime('%Y-%m-%d')
+  # spec.date          = DateTime.now.strftime('%Y-%m-%d')
   spec.authors       = ["Sverrir Sigmundarson"]
   spec.email         = ["jekyll@sverrirs.com"]
   spec.homepage      = "https://github.com/sverrirs/jekyll-webp"
@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake", "~> 1.5"
   spec.add_development_dependency "minitest", '~> 5.4', '>= 5.4.3'
+  spec.add_development_dependency "fastimage", '>= 2.0.0'
 end
